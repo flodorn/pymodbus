@@ -100,7 +100,7 @@ class AsyncModbusSerialClient(ModbusBaseClient):
             await create_serial_connection(
                 self.loop,
                 self._create_protocol,
-                self.params.port,
+                '/dev/ttyUSB0',
                 baudrate=self.params.baudrate,
                 bytesize=self.params.bytesize,
                 stopbits=self.params.stopbits,
