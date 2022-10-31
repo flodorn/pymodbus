@@ -5,7 +5,7 @@ import logging
 import platform
 import ssl
 import traceback
-from binascii import b2a_hex
+#from binascii import b2a_hex
 from time import sleep
 
 from pymodbus.constants import Defaults
