@@ -1134,7 +1134,7 @@ async def StartAsyncSerialServer(  # pylint: disable=invalid-name,dangerous-defa
 
 def StartSerialServer(**kwargs):  # pylint: disable=invalid-name
     """Start and run a serial modbus server."""
-    return asyncio.run(StartAsyncSerialServer(**kwargs))
+    return asyncio.run(StartAsyncSerialServer(stopbits=1, bytesize=8, parity=None, baudrate=9600, **kwargs))
 
 
 def StartTcpServer(**kwargs):  # pylint: disable=invalid-name
