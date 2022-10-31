@@ -26,6 +26,7 @@ options:
 
 The corresponding client can be started as:
     python3 client_sync.py
+    ggg
 """
 import asyncio
 import logging
