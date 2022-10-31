@@ -70,7 +70,7 @@ def setup_server(args):
         # Continuing, or use a sparse DataBlock which can have gaps
         
         # enter datablock here for BYD battery register
-        datablock = ModbusSparseDataBlock({101: [0, 7], 40010: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]})
+        datablock = ModbusSparseDataBlock({101: [0, 7], 40010: [0, 0, 0, 3, 1, 2, 0, 0, 0, 4]})
         
     elif args.store == "factory":
         # Alternately, use the factory methods to initialize the DataBlocks
