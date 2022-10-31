@@ -315,13 +315,13 @@ class ModbusBaseRequestHandler(asyncio.BaseProtocol):
     # Derived class implementations
     # ----------------------------------------------------------------------- #
 
-    def _send_(self, data):  # pragma: no cover
+    #def _send_(self, data):  # pragma: no cover
         """Send a request (string) to the network.
 
         :param data: The unencoded modbus response
         :raises NotImplementedException:
         """
-        raise NotImplementedException("Method not implemented by derived class")
+    #    raise NotImplementedException("Method not implemented by derived class")
 
     async def _recv_(self):  # pragma: no cover
         """Receive data from the network.
