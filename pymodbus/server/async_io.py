@@ -458,8 +458,8 @@ class ModbusSingleRequestHandler(ModbusBaseRequestHandler, asyncio.Protocol):
     def _send_(self, data):
         if self.transport is not None:
             self.transport.write(data)
-            _logger.debug("Data sent: [{data}]")
-
+            txt = f"Data sent: {data}"
+            _logger.debug(txt)
 # --------------------------------------------------------------------------- #
 # Server Implementations
 # --------------------------------------------------------------------------- #
