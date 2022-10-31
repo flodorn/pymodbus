@@ -68,7 +68,10 @@ def setup_server(args):
         datablock = ModbusSequentialDataBlock(0x00, [17] * 100)
     elif args.store == "sparse":
         # Continuing, or use a sparse DataBlock which can have gaps
-        datablock = ModbusSparseDataBlock({0x00: 0, 0x05: 1})
+        
+        # enter datablock here for BYD battery register
+        datablock = ModbusSparseDataBlock({13: [3, 8], 0x05: 1})
+        
     elif args.store == "factory":
         # Alternately, use the factory methods to initialize the DataBlocks
         # or simply do not pass them to have them initialized to 0x00 on the
@@ -124,11 +127,11 @@ def setup_server(args):
     # ----------------------------------------------------------------------- #
     args.identity = ModbusDeviceIdentification(
         info_name={
-            "VendorName": "Pymodbus",
-            "ProductCode": "PM",
-            "VendorUrl": "https://github.com/riptideio/pymodbus/",
-            "ProductName": "Pymodbus Server",
-            "ModelName": "Pymodbus Server",
+            "VendorName": "07 BYD",
+            "ProductCode": "7602268",
+            "VendorUrl": "",
+            "ProductName": "",
+            "ModelName": "BYD BATTERY-BOX",
             "MajorMinorRevision": version.short(),
         }
     )
