@@ -187,14 +187,14 @@ async def run_async_server(args):
             # custom_functions=[],  # allow custom handling
             framer=args.framer,  # The framer strategy to use
             # handler=None,  # handler for each session
-            # stopbits=1,  # The number of stop bits to use
-            # bytesize=8,  # The bytesize of the serial messages
-            # parity="N",  # Which kind of parity to use
-            # baudrate=9600,  # The baud rate to use for the serial device
-            # handle_local_echo=False,  # Handle local echo of the USB-to-RS485 adaptor
+            stopbits=1,  # The number of stop bits to use
+            bytesize=8,  # The bytesize of the serial messages
+            parity="N",  # Which kind of parity to use
+            baudrate=9600,  # The baud rate to use for the serial device
+            handle_local_echo=True,  # Handle local echo of the USB-to-RS485 adaptor
             # ignore_missing_slaves=True,  # ignore request to a missing slave
-            # broadcast_enable=False,  # treat unit_id 0 as broadcast address,
-            # strict=True,  # use strict timing, t1.5 for Modbus RTU
+            broadcast_enable=False,  # treat unit_id 0 as broadcast address,
+            strict=True,  # use strict timing, t1.5 for Modbus RTU
             # defer_start=False,  # Only define server do not activate
         )
     elif args.comm == "tls":
