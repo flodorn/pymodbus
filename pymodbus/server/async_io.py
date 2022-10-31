@@ -295,7 +295,7 @@ class ModbusBaseRequestHandler(asyncio.BaseProtocol):
 
         def __send(msg, *addr):
             if _logger.isEnabledFor(logging.DEBUG):
-                txt = f"send: [{message}]- {b2a_hex(msg)}"
+                txt = f"send: [{message}]- {msg}"
                 _logger.debug(txt)
             if addr == (None,):
                 self._send_(msg)
