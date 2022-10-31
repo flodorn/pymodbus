@@ -6,7 +6,6 @@ import platform
 import ssl
 import traceback
 #from binascii import b2a_hex
-
 from time import sleep
 
 from pymodbus.constants import Defaults
@@ -296,7 +295,7 @@ class ModbusBaseRequestHandler(asyncio.BaseProtocol):
 
         def __send(msg, *addr):
             if _logger.isEnabledFor(logging.DEBUG):
-                txt = f"send furz: [{message}]- {msg}"
+                txt = f"send msg: [{message}]- {msg}"
                 _logger.debug(txt)
             if addr == (None,):
                 self._send_(msg)
