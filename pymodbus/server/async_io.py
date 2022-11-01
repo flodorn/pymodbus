@@ -245,7 +245,7 @@ class ModbusBaseRequestHandler(asyncio.BaseProtocol):
                     self.transport.close()
                 else:
                     txt = f"Unknown error occurred {exc}"
-                    _logger.error(exc)
+                    _logger.error(txt)
                     reset_frame = True  # graceful recovery
             finally:
                 if reset_frame:
