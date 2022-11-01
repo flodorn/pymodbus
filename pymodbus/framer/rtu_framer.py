@@ -234,9 +234,13 @@ class ModbusRtuFramer(ModbusFramer):
         single = kwargs.get("single", False)
         while True:
             if self.isFrameReady():
+                _logger.debug("##Frame rdy")
                 if self.checkFrame():
+                    _logger.debug("##Frame checked")
                     if self._validate_unit_id(unit, single):
+                        _logger.debug("##validated")
                         self._process(callback)
+                        _logger.debug("##processed")
                     else:
                         header_txt = self._header["uid"]
                         txt = f"Not a valid unit id - {header_txt}, ignoring!!"
