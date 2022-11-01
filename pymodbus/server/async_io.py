@@ -296,7 +296,7 @@ class ModbusBaseRequestHandler(asyncio.BaseProtocol):
                 _logger.debug("|||debug5|||")
                 response, skip_encoding = self.server.response_manipulator(response)
             self.send(response, *addr, skip_encoding=skip_encoding)
-                _logger.debug("|||debug6|||")
+            _logger.debug("|||debug6|||")
 
     def send(self, message, *addr, **kwargs):
         """Send message."""
