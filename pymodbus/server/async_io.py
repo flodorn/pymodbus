@@ -222,12 +222,14 @@ class ModbusBaseRequestHandler(asyncio.BaseProtocol):
                     _logger.debug(txt)
 
                 single = self.server.context.single
+                _logger.debug("@@@debug1")
                 self.framer.processIncomingPacket(
                     data=data,
                     callback=lambda x: self.execute(x, *addr),
                     unit=units,
                     single=single,
                 )
+                _logger.debug("@@@debug2")
 
             except asyncio.CancelledError:
                 # catch and ignore cancellation errors
