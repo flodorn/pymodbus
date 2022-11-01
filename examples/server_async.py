@@ -76,9 +76,10 @@ def setup_server(args):
         #I=ord('I')
         #SI = struct.pack('B', SIord)
        
-        s = bytes('S', 'utf-8')                  
-        struct.pack("s", s)
-        
+        #s = bytes('S', 'utf-8')                  
+        #struct.pack("s", s)
+        s = "S"
+        s.encode('ascii')
         #s = int(bytes('S', 'utf-8'))
         #SI = struct.pack("B", s)
 
