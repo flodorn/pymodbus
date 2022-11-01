@@ -234,13 +234,9 @@ class ModbusRtuFramer(ModbusFramer):
         single = kwargs.get("single", False)
         while True:
             if self.isFrameReady():
-                _logger.debug("##Frame rdy")
                 if self.checkFrame():
-                    _logger.debug("##Frame checked")
                     if self._validate_unit_id(unit, single):
-                        _logger.debug("##validated")
                         self._process(callback)
-                        _logger.debug("##processed")
                     else:
                         header_txt = self._header["uid"]
                         txt = f"Not a valid unit id - {header_txt}, ignoring!!"
@@ -261,25 +257,14 @@ class ModbusRtuFramer(ModbusFramer):
 
         :param message: The populated request/response to send
         """
-        txt = (
-                f"?????????? debug final, message: {message}"
-            )
-        _logger.debug(txt)
         data = message.encode()
-        txt = (
-                f"?????????? debug final, data: {data}"
-            )
-        _logger.debug(txt)
-        
+
         packet = (
             struct.pack(RTU_FRAME_HEADER, message.unit_id, message.function_code) + data
         )
-        _logger.debug("??or here??")
         packet += struct.pack(">H", computeCRC(packet))
         # Ensure that transaction is actually the unit id for serial comms
-        _logger.debug("??or maybe here??")
         message.transaction_id = message.unit_id
-        _logger.debug("??or possibly here??")
         return packet
 
     def sendPacket(self, message):
@@ -343,19 +328,13 @@ class ModbusRtuFramer(ModbusFramer):
     def _process(self, callback, error=False):
         """Process incoming packets irrespective error condition."""
         data = self.getRawFrame() if error else self.getFrame()
-        _logger.debug("++++debug1")
         if (result := self.decoder.decode(data)) is None:
             raise ModbusIOException("Unable to decode request")
-            _logger.debug("++++debug2")
         if error and result.function_code < 0x80:
             raise InvalidMessageReceivedException(result)
-            _logger.debug("++++debug3")
         self.populateResult(result)
-        _logger.debug("++++debug4")
         self.advanceFrame()
-        _logger.debug("++++debug5")
         callback(result)  # defer or push to a thread?
-        _logger.debug("++++debug6")
 
     def getRawFrame(self):  # pylint: disable=invalid-name
         """Return the complete buffer."""
