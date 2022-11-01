@@ -257,6 +257,8 @@ class ModbusRtuFramer(ModbusFramer):
 
         :param message: The populated request/response to send
         """
+        _logger.debug("??issue here??")
+        
         data = message.encode()
         packet = (
             struct.pack(RTU_FRAME_HEADER, message.unit_id, message.function_code) + data
