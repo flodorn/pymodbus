@@ -261,10 +261,16 @@ class ModbusRtuFramer(ModbusFramer):
 
         :param message: The populated request/response to send
         """
-        _logger.debug("??issue here??")
-        
+        txt = (
+                f"?????????? debug final, message: {message}"
+            )
+            _logger.debug(txt)
         data = message.encode()
-        _logger.debug("??here??")
+        txt = (
+                f"?????????? debug final, data: {data}"
+            )
+            _logger.debug(txt)
+        
         packet = (
             struct.pack(RTU_FRAME_HEADER, message.unit_id, message.function_code) + data
         )
