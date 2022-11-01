@@ -328,6 +328,10 @@ class ModbusBaseRequestHandler(asyncio.BaseProtocol):
         elif message.should_respond:
             # self.server.control.Counter.BusMessage += 1
             pdu = self.framer.buildPacket(message)
+            txt = (
+                f"***debug partyyy, message: {message}"
+            )
+            _logger.error(txt)
             __send(pdu, *addr)
             _logger.debug("**debug4**")
         else:
