@@ -74,7 +74,7 @@ def setup_server(args):
         SI = struct.pack('c', "SI")
         
         datablock = ModbusSparseDataBlock({
-                101:[SI, 1],
+                101:[\x53\x49, 1],
                 103:["BY", "D", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
                 119:["BY", "D ", "Ba", "tt", "er", "y-", "Bo", "x ", "Pr", "em", "iu", "m ", "HV", 0, 0, 0], 
                 135:["5.", "0", 0, 0, 0, 0, 0, 0, "3.", "16", 0, 0, 0, 0, 0, 0], 
