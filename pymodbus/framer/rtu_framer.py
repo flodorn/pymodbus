@@ -337,13 +337,19 @@ class ModbusRtuFramer(ModbusFramer):
     def _process(self, callback, error=False):
         """Process incoming packets irrespective error condition."""
         data = self.getRawFrame() if error else self.getFrame()
+        _logger.debug("++++debug1")
         if (result := self.decoder.decode(data)) is None:
             raise ModbusIOException("Unable to decode request")
+            _logger.debug("++++debug2")
         if error and result.function_code < 0x80:
             raise InvalidMessageReceivedException(result)
+            _logger.debug("++++debug3")
         self.populateResult(result)
+        _logger.debug("++++debug4")
         self.advanceFrame()
+        _logger.debug("++++debug5")
         callback(result)  # defer or push to a thread?
+        _logger.debug("++++debug6")
 
     def getRawFrame(self):  # pylint: disable=invalid-name
         """Return the complete buffer."""
