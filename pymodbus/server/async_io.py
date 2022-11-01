@@ -222,14 +222,12 @@ class ModbusBaseRequestHandler(asyncio.BaseProtocol):
                     _logger.debug(txt)
 
                 single = self.server.context.single
-                _logger.debug("@@@debug1")
                 self.framer.processIncomingPacket(
                     data=data,
                     callback=lambda x: self.execute(x, *addr),
                     unit=units,
                     single=single,
                 )
-                _logger.debug("@@@debug2")
 
             except asyncio.CancelledError:
                 # catch and ignore cancellation errors
@@ -263,21 +261,14 @@ class ModbusBaseRequestHandler(asyncio.BaseProtocol):
         broadcast = False
         try:
             if self.server.broadcast_enable and not request.unit_id:
-                _logger.debug("|||debug1|||")
                 broadcast = True
                 # if broadcasting then execute on all slave contexts,
                 # note response will be ignored
                 for unit_id in self.server.context.slaves():
                     response = request.execute(self.server.context[unit_id])
-                    _logger.debug("|||debug2|||")
             else:
-                _logger.debug("|||debug3|||")
                 context = self.server.context[request.unit_id]
                 response = request.execute(context)
-                txt = (
-                f"|||debugger|||req: {request}; resp:{response}; id:{request.unit_id}"
-                )
-                _logger.error(txt)
         except NoSuchSlaveException:
             txt = f"requested slave does not exist: {request.unit_id}"
             _logger.error(txt)
@@ -292,50 +283,31 @@ class ModbusBaseRequestHandler(asyncio.BaseProtocol):
             response = request.doException(merror.SlaveFailure)
         # no response when broadcasting
         if not broadcast:
-            _logger.debug("|||debug4|||")
             response.transaction_id = request.transaction_id
-            _logger.debug("|||debug4..1|||")
             response.unit_id = request.unit_id
-            _logger.debug("|||debug4..2|||")
             skip_encoding = False
             if self.server.response_manipulator:
-                _logger.debug("|||debug5|||")
                 response, skip_encoding = self.server.response_manipulator(response)
-            txt = (
-                f"|||debug party, response: {response}"
-            )
-            _logger.error(txt)
             self.send(response, *addr, skip_encoding=skip_encoding)
-            _logger.debug("|||debug6|||")
 
     def send(self, message, *addr, **kwargs):
         """Send message."""
 
         def __send(msg, *addr):
             if _logger.isEnabledFor(logging.DEBUG):
-                txt = f"send msg: [{message}]- {msg}"
+                txt = f"send msg: {msg}"
                 _logger.debug(txt)
             if addr == (None,):
                 self._send_(msg)
-                _logger.debug("**debug1**")
             else:
                 self._send_(msg, *addr)
-                _logger.debug("**debug2**")
 
         if kwargs.get("skip_encoding", False):
             __send(message, *addr)
-            _logger.debug("**debug3**")
         elif message.should_respond:
             # self.server.control.Counter.BusMessage += 1
-            txt = (
-                f"***debug partyyy, message: {message}"
-            )
-            _logger.debug(txt)
-            
             pdu = self.framer.buildPacket(message)
-            
             __send(pdu, *addr)
-            _logger.debug("**debug4**")
         else:
             _logger.debug("Skipping sending response!!")
 
