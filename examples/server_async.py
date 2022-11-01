@@ -75,7 +75,8 @@ def setup_server(args):
         #S=ord('S')
         #I=ord('I')
         #SI = struct.pack('B', SIord)
-        s = bytes(s, 'utf-8')                   # Or other appropriate encoding
+       
+	s = bytes('S', 'utf-8')                   # Or other appropriate encoding
         struct.pack("s", s)
         
         datablock = ModbusSparseDataBlock({
