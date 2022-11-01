@@ -73,7 +73,7 @@ def setup_server(args):
         # enter datablock here for BYD battery register
         #SI = struct.pack('c', "S")
         SIord=ord('c')
-        SI = struct.pack('c', SIord)
+        SI = struct.pack('B', SIord)
 
         datablock = ModbusSparseDataBlock({
                 101:[SI, 1],
