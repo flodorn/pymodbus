@@ -84,7 +84,7 @@ class ReadRegistersResponseBase(ModbusResponse):
         result = struct.pack(">B", len(self.registers) * 2)
         for register in self.registers:
             if (isinstance(register, str)):
-                result += struct.pack(">s", register.encode())
+                result += struct.pack(">2s", register.encode())
             else:
                 result += struct.pack(">H", register)
         return result
