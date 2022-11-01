@@ -275,7 +275,7 @@ class ModbusBaseRequestHandler(asyncio.BaseProtocol):
                 context = self.server.context[request.unit_id]
                 response = request.execute(context)
                 txt = (
-                f"|||debugger|||context: {context}; resp:{response}; id:{request.unit_id}"
+                f"|||debugger|||req: {request}; resp:{response}; id:{request.unit_id}"
                 )
                 _logger.error(txt)
         except NoSuchSlaveException:
