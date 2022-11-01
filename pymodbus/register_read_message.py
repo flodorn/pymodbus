@@ -69,7 +69,6 @@ class ReadRegistersResponseBase(ModbusResponse):
         :param values: The values to write to
         :param unit: Modbus slave unit ID
         """
-        _logger.debug("-----register values")
         super().__init__(unit, **kwargs)
 
         #: A list of register values
@@ -80,7 +79,6 @@ class ReadRegistersResponseBase(ModbusResponse):
 
         :returns: The encoded packet
         """
-        _logger.debug("-----encode self")
         result = struct.pack(">B", len(self.registers) * 2)
         for register in self.registers:
             if (isinstance(register, str)):
@@ -94,7 +92,6 @@ class ReadRegistersResponseBase(ModbusResponse):
 
         :param data: The request to decode
         """
-        _logger.debug("-----decode self")
         byte_count = int(data[0])
         self.registers = []
         for i in range(1, byte_count + 1, 2):
@@ -106,7 +103,6 @@ class ReadRegistersResponseBase(ModbusResponse):
         :param index: The indexed register to retrieve
         :returns: The request register
         """
-        _logger.debug("-----get register")
         return self.registers[index]
 
     def __str__(self):
@@ -114,7 +110,6 @@ class ReadRegistersResponseBase(ModbusResponse):
 
         :returns: A string representation of the instance
         """
-        _logger.debug("-----string repsresentation")
         return f"{self.__class__.__name__} ({len(self.registers)})"
 
 
@@ -137,7 +132,6 @@ class ReadHoldingRegistersRequest(ReadRegistersRequestBase):
         :param count: The number of registers to read from address
         :param unit: Modbus slave unit ID
         """
-        _logger.debug("-----read request 1")
         super().__init__(address, count, unit, **kwargs)
 
     def execute(self, context):
@@ -146,7 +140,6 @@ class ReadHoldingRegistersRequest(ReadRegistersRequestBase):
         :param context: The datastore to request from
         :returns: An initialized :py:class:`~pymodbus.register_read_message.ReadHoldingRegistersResponse`, or an :py:class:`~pymodbus.pdu.ExceptionResponse` if an error occurred
         """
-        _logger.debug("-----read request 2")
         if not (1 <= self.count <= 0x7D):
             return self.doException(merror.IllegalValue)
         if not context.validate(self.function_code, self.address, self.count):
