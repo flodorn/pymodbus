@@ -307,15 +307,19 @@ class ModbusBaseRequestHandler(asyncio.BaseProtocol):
                 _logger.debug(txt)
             if addr == (None,):
                 self._send_(msg)
+                _logger.debug("**debug1**")
             else:
                 self._send_(msg, *addr)
+                _logger.debug("**debug2**")
 
         if kwargs.get("skip_encoding", False):
             __send(message, *addr)
+            _logger.debug("**debug3**")
         elif message.should_respond:
             # self.server.control.Counter.BusMessage += 1
             pdu = self.framer.buildPacket(message)
             __send(pdu, *addr)
+            _logger.debug("**debug4**")
         else:
             _logger.debug("Skipping sending response!!")
 
