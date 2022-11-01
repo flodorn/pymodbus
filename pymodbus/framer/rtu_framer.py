@@ -266,6 +266,7 @@ class ModbusRtuFramer(ModbusFramer):
         packet += struct.pack(">H", computeCRC(packet))
         # Ensure that transaction is actually the unit id for serial comms
         message.transaction_id = message.unit_id
+        _logger.debug("??or here??")
         return packet
 
     def sendPacket(self, message):
