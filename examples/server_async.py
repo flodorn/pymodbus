@@ -31,6 +31,7 @@ The corresponding client can be started as:
 import asyncio
 import logging
 import os
+import struct
 
 from examples.helper import get_commandline
 from pymodbus.datastore import (
