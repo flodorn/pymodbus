@@ -264,12 +264,12 @@ class ModbusRtuFramer(ModbusFramer):
         txt = (
                 f"?????????? debug final, message: {message}"
             )
-            _logger.debug(txt)
+        _logger.debug(txt)
         data = message.encode()
         txt = (
                 f"?????????? debug final, data: {data}"
             )
-            _logger.debug(txt)
+        _logger.debug(txt)
         
         packet = (
             struct.pack(RTU_FRAME_HEADER, message.unit_id, message.function_code) + data
