@@ -263,12 +263,15 @@ class ModbusBaseRequestHandler(asyncio.BaseProtocol):
         broadcast = False
         try:
             if self.server.broadcast_enable and not request.unit_id:
+                _logger.debug("|||debug1|||")
                 broadcast = True
                 # if broadcasting then execute on all slave contexts,
                 # note response will be ignored
                 for unit_id in self.server.context.slaves():
                     response = request.execute(self.server.context[unit_id])
+                    _logger.debug("|||debug2|||")
             else:
+                _logger.debug("|||debug3|||")
                 context = self.server.context[request.unit_id]
                 response = request.execute(context)
         except NoSuchSlaveException:
@@ -285,12 +288,15 @@ class ModbusBaseRequestHandler(asyncio.BaseProtocol):
             response = request.doException(merror.SlaveFailure)
         # no response when broadcasting
         if not broadcast:
+            _logger.debug("|||debug4|||")
             response.transaction_id = request.transaction_id
             response.unit_id = request.unit_id
             skip_encoding = False
             if self.server.response_manipulator:
+                _logger.debug("|||debug5|||")
                 response, skip_encoding = self.server.response_manipulator(response)
             self.send(response, *addr, skip_encoding=skip_encoding)
+                _logger.debug("|||debug6|||")
 
     def send(self, message, *addr, **kwargs):
         """Send message."""
