@@ -6,6 +6,7 @@ from pymodbus.constants import Defaults
 from pymodbus.pdu import ModbusExceptions as merror
 from pymodbus.pdu import ModbusRequest, ModbusResponse
 
+import logging
 _logger = logging.getLogger()
 
 
