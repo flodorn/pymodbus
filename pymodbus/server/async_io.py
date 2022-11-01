@@ -301,7 +301,10 @@ class ModbusBaseRequestHandler(asyncio.BaseProtocol):
             if self.server.response_manipulator:
                 _logger.debug("|||debug5|||")
                 response, skip_encoding = self.server.response_manipulator(response)
-            _logger.debug("|||debug4..3|||")
+            txt = (
+                f"|||debug party, response: {response}"
+            )
+            _logger.error(txt)
             self.send(response, *addr, skip_encoding=skip_encoding)
             _logger.debug("|||debug6|||")
 
