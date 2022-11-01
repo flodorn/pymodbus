@@ -294,11 +294,14 @@ class ModbusBaseRequestHandler(asyncio.BaseProtocol):
         if not broadcast:
             _logger.debug("|||debug4|||")
             response.transaction_id = request.transaction_id
+            _logger.debug("|||debug4..1|||")
             response.unit_id = request.unit_id
+            _logger.debug("|||debug4..2|||")
             skip_encoding = False
             if self.server.response_manipulator:
                 _logger.debug("|||debug5|||")
                 response, skip_encoding = self.server.response_manipulator(response)
+            _logger.debug("|||debug4..3|||")
             self.send(response, *addr, skip_encoding=skip_encoding)
             _logger.debug("|||debug6|||")
 
