@@ -274,6 +274,7 @@ class ModbusBaseRequestHandler(asyncio.BaseProtocol):
                 _logger.debug("|||debug3|||")
                 context = self.server.context[request.unit_id]
                 response = request.execute(context)
+                _logger.debug("|||debug3.5|||ctx: {context} id:{request.unit_id} resp: {response}")
         except NoSuchSlaveException:
             txt = f"requested slave does not exist: {request.unit_id}"
             _logger.error(txt)
