@@ -83,7 +83,10 @@ class ReadRegistersResponseBase(ModbusResponse):
         _logger.debug("-----encode self")
         result = struct.pack(">B", len(self.registers) * 2)
         for register in self.registers:
-            result += struct.pack(">c", register)
+            if (isinstance(register, str)):
+                result += struct.pack(">c", register.encode())
+            else:
+                result += struct.pack(">H", register)
         return result
 
     def decode(self, data):
