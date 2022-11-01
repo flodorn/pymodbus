@@ -262,7 +262,7 @@ class ModbusRtuFramer(ModbusFramer):
         data = message.encode()
         _logger.debug("??here??")
         packet = (
-            struct.pack(RTU_FRAME_HEADER, message.unit_id, message.function_code) + data
+            struct.pack(RTU_FRAME_HEADER, message.unit_id, message.function_code) 
         )
         _logger.debug("??or here??")
         packet += struct.pack(">H", computeCRC(packet))
