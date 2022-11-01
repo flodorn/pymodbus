@@ -81,7 +81,7 @@ class ReadRegistersResponseBase(ModbusResponse):
         :returns: The encoded packet
         """
         _logger.debug("-----encode self")
-        result = struct.pack("cB", len(self.registers) * 2)
+        result = struct.pack(">c", len(self.registers) * 2)
         for register in self.registers:
             result += struct.pack(">H", register)
         return result
