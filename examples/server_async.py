@@ -70,22 +70,11 @@ def setup_server(args):
     elif args.store == "sparse":
         # Continuing, or use a sparse DataBlock which can have gaps
         
-        # enter datablock here for BYD battery register
-        #SI = struct.pack('I', "S")
-        #S=ord('S')
-        #I=ord('I')
-        #SI = struct.pack('B', SIord)
-       
-        #s = bytes('S', 'utf-8')                  
-        #struct.pack("s", s)
-        xs = "S"
-        s = xs.encode()
-        #s = int(bytes('S', 'utf-8'))
-        #SI = struct.pack("B", s)
+        # enter datablock here for fake BYD battery register
 
         datablock = ModbusSparseDataBlock({
                 101:["SI", 1],
-                103:["BY", "D", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
+                103:["BY", "D ", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
                 119:["BY", "D ", "Ba", "tt", "er", "y-", "Bo", "x ", "Pr", "em", "iu", "m ", "HV", 0, 0, 0], 
                 135:["5.", "0", 0, 0, 0, 0, 0, 0, "3.", "16", 0, 0, 0, 0, 0, 0], 
                 151:["P0", "30", "T0", "20", "Z2", "00", "81", "03", "48", "80", "  ", "  ", 0, 0, 0, 0], 
@@ -95,9 +84,7 @@ def setup_server(args):
                 401:[0]*20, 
                 1001:[0]*100,
                 12289:[0]*768})
-	
 
-        #datablock = ModbusSparseDataBlock({101: [0, 7], 40010: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]})
         
     elif args.store == "factory":
         # Alternately, use the factory methods to initialize the DataBlocks
