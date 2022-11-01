@@ -263,10 +263,12 @@ class ModbusRtuFramer(ModbusFramer):
         packet = (
             struct.pack(RTU_FRAME_HEADER, message.unit_id, message.function_code) + data
         )
+        _logger.debug("??or here??")
         packet += struct.pack(">H", computeCRC(packet))
         # Ensure that transaction is actually the unit id for serial comms
+        _logger.debug("??or maybe here??")
         message.transaction_id = message.unit_id
-        _logger.debug("??or here??")
+        _logger.debug("??or possibly here??")
         return packet
 
     def sendPacket(self, message):
