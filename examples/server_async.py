@@ -71,8 +71,9 @@ def setup_server(args):
         # Continuing, or use a sparse DataBlock which can have gaps
         
         # enter datablock here for BYD battery register
-        SI = struct.pack('c', "S")
-        
+        #SI = struct.pack('c', "S")
+        SI=ord(c)
+	
         datablock = ModbusSparseDataBlock({
                 101:[SI, 1],
                 103:["BY", "D", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
